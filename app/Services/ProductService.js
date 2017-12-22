@@ -1,78 +1,50 @@
 'use strict';
 
-const amazon = require('amazon-product-api');
+const AmazonService = use('App/Services/AmazonService');
+const WordService = use('App/Services/WordService');
 const Logger = use('Logger');
-const Env = use('Env');
 
-/**
- * Wrapper for Amazon Product API
- */
+
 class ProductService {
 
-  static get MIN_PRICE() { return 10 };
-  static get DOMAINS() {
-    return {
-      CA: 'webservices.amazon.ca',
-      US: 'webservices.amazon.com'    // default
-    };
-  }
+  static get MAX_ATTEMPTS() { return 10 }
 
   constructor() {
-    this.amazonClient = this._connectToAmazon()
-  }
-
-  /**
-   * Connects to Amazon API
-   * @returns {object} Amazon API client accessed using appropriate credentials
-   * @private
-   */
-  _connectToAmazon() {
-    try {
-      return amazon.createClient({
-        awsId: Env.get('AWS_ID'),
-        awsSecret: Env.get('AWS_SECRET'),
-        awsTag: Env.get('AWS_TAG')
-      });
-    } catch (e) {
-      Logger.error("Couldn't connect to Amazon Product Advertising API. Please check your credentials.")
-    }
+    this._attempts = 0;
+    this._amazonService = (new AmazonService);
   }
 
   /**
    * Get a random product from Amazon
    * @async
-   * @param {string} searchTerm
    * @returns {Promise<object>}
    */
-  async getRandomProduct(searchTerm, filters) {
-    try {
-      let amazonParams = {
-        keywords: searchTerm,
-        // responseGroup: 'OfferSummary,ItemAttributes',
-        responseGroup: 'OfferSummary,ItemAttributes,Images',
-        availability: 'Available',
-        minimumPrice: ProductService.MIN_PRICE
-      };
-
-      if (filters.maximumPrice) {
-        amazonParams.maximumPrice = filters.maximumPrice;
+  async getRandomProduct(filters) {
+    // Check for max attempts
+    if (this._attempts === ProductService.MAX_ATTEMPTS) {
+      return {
+        // TODO: Would be better to have an error service that would nicely parse and format both local and Amazon errors
+        Error: [
+          'Exceeded max attempts'
+        ]
       }
+    }
 
-      if (filters.country) {
-        if (ProductService.DOMAINS[filters.country]) {
-          amazonParams.domain = ProductService.DOMAINS[filters.country];
-        } else {
-          throw `App is not configured to access Amazon API through the country '${filters.country}'. `
-          + `Allowable options are '${Object.keys(ProductService.DOMAINS).join("', '")}'.`;
-        }
-      }
+    this._attempts++;
 
+    let phrase = (new WordService).getRandomPhrase();
+    Logger.info(`Phrase (Attempt ${this._attempts}): ${phrase}`);
+
+    let results = await this._amazonService.getProducts(phrase, filters);
+
+    if (results.products) {
       // Return a random product
-      let products = await this.amazonClient.itemSearch(amazonParams);
-      return products[Math.floor(Math.random()*products.length)];
-
-    } catch (e) {
-      Logger.error(e);
+      return {
+        phrase,
+        product: results.products[Math.floor(Math.random()*results.products.length)]
+      };
+    } else {
+      return this.getRandomProduct(filters);
     }
   }
 }
