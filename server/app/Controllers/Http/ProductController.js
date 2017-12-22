@@ -6,7 +6,7 @@ const Logger = use('Logger');
 class ProductController {
   async get({request}) {
     let filters = request.get('filters');
-    return await (new ProductService).getRandomProduct(filters);
+    return await (new ProductService).getProduct(filters);
   }
 
 }

@@ -15,13 +15,15 @@ class ProductService {
     this._amazonService = (new AmazonService);
   }
 
+
   /**
    * Get a random product from Amazon
    * @param {object} filters
+   * @param {boolean} isRandom
    * @async
    * @returns {Promise<object>}
    */
-  async getRandomProduct(filters) {
+  async getProduct(filters, isRandom = true) {
     this._attempts++;
 
     let phrase = (new WordService).getRandomPhrase();
@@ -30,11 +32,10 @@ class ProductService {
     let results = await this._amazonService.getProducts(phrase, filters);
 
     if (results.products) {
-      // Return a random product
-      return {
-        phrase,
-        product: results.products[Math.floor(Math.random()*results.products.length)]
-      };
+      let product = (isRandom
+                    ? results.products[Math.floor(Math.random()*results.products.length)]
+                    : results.products[0]);
+      return { phrase, product };
     }
 
     // Looks like an error, should we make another attempt?
