@@ -1,6 +1,6 @@
-'use strict';
+'use strict'
 
-// TODO: Eventually convert this to either (a) consume an API to get random words or (b) use a Word model and store words in the DB
+// TODO: Convert this to either (a) consume an API to get random words or (b) use a Word model and store words in DB
 class WordService {
 
   static get MIN_PHRASE_LENGTH() { return 1 }
@@ -255,9 +255,14 @@ class WordService {
     ];
   }
 
+
+  /**
+   * Generates a random phrase from the word list within the phrase length limits
+   * @returns {string}
+   */
   getRandomPhrase() {
     let phraseLength = this._getRandomPhraseLength();
-    console.log(phraseLength)
+
     let words = [];
     for (let i = 0; i < phraseLength; i++) {
       words.push(this._getRandomWord());
@@ -266,10 +271,22 @@ class WordService {
     return words.join(' ');
   }
 
+
+  /**
+   * Gets a random word from the word list
+   * @returns {string}
+   * @private
+   */
   _getRandomWord() {
     return WordService.WORD_LIST[Math.floor(Math.random()*WordService.WORD_LIST.length)];
   }
 
+
+  /**
+   * Generates a random phrase length within the defined limits
+   * @returns {number}
+   * @private
+   */
   _getRandomPhraseLength() {
     return Math.floor(Math.random()
       * (WordService.MAX_PHRASE_LENGTH - WordService.MIN_PHRASE_LENGTH + 1)
