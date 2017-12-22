@@ -5,15 +5,19 @@ const WordService = use('App/Services/WordService');
 const Logger = use('Logger');
 
 class ProductController {
-  async get() {
+  async get({request}) {
+
+    let filters = request.get('filters');
+
     let phrase = (new WordService).getRandomPhrase();
-    let product = await (new ProductService).getRandomProduct(phrase);
+    let product = await (new ProductService).getRandomProduct(phrase, filters);
 
     return {
       phrase,
       product
     };
   }
+
 }
 
 module.exports = ProductController
