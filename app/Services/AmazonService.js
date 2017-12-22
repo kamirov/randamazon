@@ -19,6 +19,15 @@ class AmazonService {
     };
   }
   static get DEFAULT_DOMAIN() { return 'US' }
+  static get DEFAULT_SEARCH_PARAMS() {
+    return {
+      // responseGroup: 'OfferSummary,ItemAttributes',
+      responseGroup: 'OfferSummary,ItemAttributes,Images',
+      availability: 'Available',
+      minimumPrice: AmazonService.MIN_PRICE
+    }
+  }
+
 
   constructor() {
     this.client = this._connectToAmazon()
@@ -47,6 +56,7 @@ class AmazonService {
    * Get products from Amazon
    * @async
    * @param {string} searchTerm
+   * @param {string} fukters
    * @returns {Promise<object>}
    */
   async getProducts(searchTerm, filters) {
@@ -71,16 +81,20 @@ class AmazonService {
    * @private
    */
   _getParams(searchTerm, filters) {
-    let params = {
-      keywords: searchTerm,
-      // responseGroup: 'OfferSummary,ItemAttributes',
-      responseGroup: 'OfferSummary,ItemAttributes,Images',
-      availability: 'Available',
-      minimumPrice: AmazonService.MIN_PRICE
-    };
+    let params = Object.assign({}, AmazonService.DEFAULT_SEARCH_PARAMS, {
+      keywords: searchTerm
+    });
 
     if (filters.maximumPrice) {
       params.maximumPrice = filters.maximumPrice;
+    }
+
+    if (filters.minimumPrice) {
+      if (filters.minimumPrice < AmazonService.MIN_PRICE) {
+        Logger.warning(`Minimum price must be >= ${AmazonService.MIN_PRICE}. Ignoring value.`);
+      } else {
+        params.minimumPrice = filters.minimumPrice;
+      }
     }
 
     if (filters.country) {
