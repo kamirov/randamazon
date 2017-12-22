@@ -18,12 +18,13 @@ class AmazonService {
       US: 'webservices.amazon.com'
     };
   }
-  static get DEFAULT_DOMAIN() { return 'US' }
+  static get DEFAULT_COUNTRY() { return 'CA' }
   static get DEFAULT_SEARCH_PARAMS() {
     return {
       // responseGroup: 'OfferSummary,ItemAttributes',
       responseGroup: 'OfferSummary,ItemAttributes,Images',
       availability: 'Available',
+      domain: AmazonService.DOMAINS[AmazonService.DEFAULT_COUNTRY],
       minimumPrice: AmazonService.MIN_PRICE
     }
   }
@@ -101,7 +102,7 @@ class AmazonService {
       if (AmazonService.DOMAINS[filters.country]) {
         params.domain = AmazonService.DOMAINS[filters.country];
       } else {
-        Logger.warning(`Allowable countries are '${Object.keys(AmazonService.DOMAINS).join("', '")}'. Defaulting to ${AmazonService.DEFAULT_DOMAIN}.`);
+        Logger.warning(`Allowable countries are '${Object.keys(AmazonService.DOMAINS).join("', '")}'. Defaulting to ${AmazonService.DEFAULT_COUNTRY}.`);
       }
     }
 
