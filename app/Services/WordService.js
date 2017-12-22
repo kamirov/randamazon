@@ -4,7 +4,7 @@
 class WordService {
 
   static get MIN_PHRASE_LENGTH() { return 1 }
-  static get MAX_PHRASE_LENGTH() { return 3 }
+  static get MAX_PHRASE_LENGTH() { return 5 }
   static get WORD_LIST() {
     return [
       // From https://github.com/punkave/random-words
