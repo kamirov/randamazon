@@ -34,6 +34,8 @@ const styles = theme => ({
     },
     devNotes: {
         fontSize: '0.8rem',
+        marginTop: '1rem',
+        color: '#777',
         fontFamily: '"Courier New", Courier, monospace',
         textAlign: 'right'
     }
@@ -79,27 +81,27 @@ class ProductCard extends Component {
                         <Button raised color="primary" href={this.props.product.url} target='_blank'>
                             {this.props.product.price}
                         </Button>
-                        <div className={this.props.classes.flexGrow}>
-                            <IconButton
-                                className={classnames(this.props.classes.expand, {
-                                    [this.props.classes.expandOpen]: this.state.expanded,
-                                })}
-                                onClick={this.handleExpandClick}
-                                aria-expanded={this.state.expanded}
-                                aria-label="Show more"
-                            >
-                                <ExpandMoreIcon />
-                            </IconButton>
-                        </div>
+                        {/*<div className={this.props.classes.flexGrow}>*/}
+                            {/*<IconButton*/}
+                                {/*className={classnames(this.props.classes.expand, {*/}
+                                    {/*[this.props.classes.expandOpen]: this.state.expanded,*/}
+                                {/*})}*/}
+                                {/*onClick={this.handleExpandClick}*/}
+                                {/*aria-expanded={this.state.expanded}*/}
+                                {/*aria-label="Show more"*/}
+                            {/*>*/}
+                                {/*<ExpandMoreIcon />*/}
+                            {/*</IconButton>*/}
+                        {/*</div>*/}
                     </CardActions>
-                    <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
-                        <CardContent>
-                            <Typography className={this.props.classes.devNotes}>
-                                <i>Randomized based on "{this.props.phrase}"</i>
-                            </Typography>
-                        </CardContent>
-                    </Collapse>
+                    {/*<Collapse in={this.state.expanded} timeout="auto" unmountOnExit>*/}
+                        {/*<CardContent>*/}
+                        {/*</CardContent>*/}
+                    {/*</Collapse>*/}
                 </Card>
+                <Typography className={this.props.classes.devNotes}>
+                    <i>Randomized based on "{this.props.phrase}"</i>
+                </Typography>
             </div>
         );
     }
