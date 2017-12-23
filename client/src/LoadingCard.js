@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withStyles } from 'material-ui/styles';
 import Card, { CardContent } from 'material-ui/Card';
 import { CircularProgress } from 'material-ui/Progress';
+import Typography from 'material-ui/Typography';
 
 const styles = theme => ({
     card: {
@@ -36,7 +37,7 @@ class ErrorCard extends Component {
                     </CardContent>
                 </Card>
                 <Typography className={this.props.classes.devNotes}>
-                    <i>Randomized using "{this.props.phrase}". Made with &#10084; and JS by <a target="_blank" href="http://andreis.place" rel="noopener noreferrer">kamirov</a>.</i>
+                    <i>Made with &#10084; and JS by <a target="_blank" href="http://andreis.place" rel="noopener noreferrer">kamirov</a>.</i>
                 </Typography>
             </div>
         );
