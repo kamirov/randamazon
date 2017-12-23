@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
-import classnames from 'classnames';
 import { withStyles } from 'material-ui/styles';
 import Card, { CardMedia, CardContent, CardActions } from 'material-ui/Card';
-import Collapse from 'material-ui/transitions/Collapse';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
-import IconButton from 'material-ui/IconButton';
-import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
 
 
 const styles = theme => ({
@@ -100,7 +96,7 @@ class ProductCard extends Component {
                     {/*</Collapse>*/}
                 </Card>
                 <Typography className={this.props.classes.devNotes}>
-                    <i>Randomized based on "{this.props.phrase}"</i>
+                    <i>Randomized using "{this.props.phrase}". Made with &#10084; and JS by <a target="_blank" href="http://andreis.place" rel="noopener noreferrer">kamirov</a>.</i>
                 </Typography>
             </div>
         );
