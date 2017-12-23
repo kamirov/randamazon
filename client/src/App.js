@@ -21,6 +21,7 @@ class App extends Component {
         let responseData = await (await fetch('http://localhost:3500/product')).json();
         this.setState({
             product: responseData.product,
+            phrase: responseData.phrase,
             status: 'ok'
         });
         console.log(responseData);
@@ -30,7 +31,7 @@ class App extends Component {
 
         let main = null;
         if (this.state.status === 'ok') {
-            main = <ProductCard product={this.state.product} />;
+            main = <ProductCard product={this.state.product} phrase={this.state.phrase} />;
         } else if (this.state.status === 'error') {
 
         } else if (this.state.status === 'loading') {
