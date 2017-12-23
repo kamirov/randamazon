@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { withStyles } from 'material-ui/styles';
-import Card, { CardHeader, CardMedia, CardContent, CardActions } from 'material-ui/Card';
+import Card, { CardMedia, CardContent, CardActions } from 'material-ui/Card';
 import Collapse from 'material-ui/transitions/Collapse';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
@@ -57,7 +56,7 @@ class ProductCard extends Component {
                 </ul>
             );
         } else {
-            description = <i>No description available.</i>
+            description = <p><i>No description available.</i></p>
         }
 
         return (
