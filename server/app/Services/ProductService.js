@@ -10,9 +10,9 @@ class ProductService {
   static get MAX_ATTEMPTS() { return 25 }
 
 
-  constructor() {
+  constructor(countryCode) {
     this._attempts = 0;
-    this._amazonService = (new AmazonService);
+    this._amazonService = (new AmazonService(countryCode));
   }
 
 

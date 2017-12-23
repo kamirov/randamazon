@@ -30,22 +30,23 @@ class AmazonService {
   }
 
 
-  constructor() {
-    this.client = this._connectToAmazon()
+  constructor(countryCode) {
+    this.client = this._connectToAmazon(countryCode)
   }
 
 
   /**
    * Connects to Amazon API
+   * @param {string} countryCode
    * @returns {object} Amazon API client accessed using appropriate credentials
    * @private
    */
-  _connectToAmazon() {
+  _connectToAmazon(countryCode = AmazonService.DEFAULT_COUNTRY) {
     try {
       return amazon.createClient({
         awsId: Env.get('AWS_ID'),
         awsSecret: Env.get('AWS_SECRET'),
-        awsTag: Env.get('AWS_TAG')
+        awsTag: Env.get(`AWS_TAG_${countryCode}`)
       });
     } catch (e) {
       Logger.error("Couldn't connect to Amazon Product Advertising API. Please check your credentials.")

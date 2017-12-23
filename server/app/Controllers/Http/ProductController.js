@@ -7,7 +7,7 @@ class ProductController {
   async get({request}) {
     let filters = this._sanitizeFilters(request.get('filters'));
 
-    return await (new ProductService).getProduct(filters);
+    return await (new ProductService([filters.countryCode])).getProduct(filters);
   }
 
 
