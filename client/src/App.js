@@ -44,21 +44,26 @@ class App extends Component {
             status: 'loading'
         });
 
-        let responseData = await (await fetch(`http://localhost:3500/product/?${paramFilters}`)).json();
 
-        if (responseData.product) {
-            this.setState({
-                product: responseData.product,
-                phrase: responseData.phrase,
-                status: 'ok'
-            });
-        } else {
+        try {
+            let responseData = await (await fetch(`${process.env.REACT_APP_API}/product/?${paramFilters}`)).json();
+
+            if (responseData.product) {
+                this.setState({
+                    product: responseData.product,
+                    phrase: responseData.phrase,
+                    status: 'ok'
+                });
+            } else {
+                this.setState({
+                    status: 'error'
+                });
+            }
+        } catch (e) {
             this.setState({
                 status: 'error'
             });
         }
-
-        console.log(responseData);
     }
 
     updateFilter(name, value) {
