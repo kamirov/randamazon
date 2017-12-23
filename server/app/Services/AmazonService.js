@@ -108,6 +108,29 @@ class AmazonService {
 
     return params;
   }
+
+
+  /**
+   *
+   * @param {string} rawProduct
+   * @returns {object}
+   */
+  parseProduct(rawProduct) {
+    try {
+      return {
+        title: rawProduct.ItemAttributes[0].Title[0],
+        features: rawProduct.ItemAttributes[0].Feature,
+        imageUrl: rawProduct.LargeImage[0].URL[0],
+        url: rawProduct.DetailPageURL[0],
+        price: rawProduct.OfferSummary[0].LowestNewPrice[0].FormattedPrice[0]
+      }
+    } catch (e) {
+      return {
+        // TODO: This is so lazy.
+        error: "Some fields missing"
+      }
+    }
+  }
 }
 
 module.exports = AmazonService;

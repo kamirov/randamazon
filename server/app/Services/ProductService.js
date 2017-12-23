@@ -32,10 +32,14 @@ class ProductService {
     let results = await this._amazonService.getProducts(phrase, filters);
 
     if (results.products) {
-      let product = (isRandom
+      let rawProduct = (isRandom
                     ? results.products[Math.floor(Math.random()*results.products.length)]
                     : results.products[0]);
-      return { phrase, product };
+
+      let product = this._amazonService.parseProduct(rawProduct);
+      if (!product.error) {
+        return { phrase, product };
+      }
     }
 
     // Looks like an error, should we make another attempt?
@@ -49,8 +53,10 @@ class ProductService {
       }
     }
 
-    return this.getRandomProduct(filters);
+    return this.getProduct(filters, isRandom);
   }
+
+
 }
 
 module.exports = ProductService;
