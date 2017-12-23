@@ -86,21 +86,21 @@ class AmazonService {
       keywords: searchTerm
     });
 
-    if (filters.maximumPrice) {
-      params.maximumPrice = filters.maximumPrice;
+    if (filters.maxPrice) {
+      params.maximumPrice = filters.maxPrice;
     }
 
-    if (filters.minimumPrice) {
-      if (filters.minimumPrice < AmazonService.MIN_PRICE) {
+    if (filters.minPrice) {
+      if (filters.minPrice < AmazonService.MIN_PRICE) {
         Logger.warning(`Minimum price must be >= ${AmazonService.MIN_PRICE}. Ignoring value.`);
       } else {
-        params.minimumPrice = filters.minimumPrice;
+        params.minimumPrice = filters.minPrice;
       }
     }
 
-    if (filters.country) {
-      if (AmazonService.DOMAINS[filters.country]) {
-        params.domain = AmazonService.DOMAINS[filters.country];
+    if (filters.countryCode) {
+      if (AmazonService.DOMAINS[filters.countryCode]) {
+        params.domain = AmazonService.DOMAINS[filters.countryCode];
       } else {
         Logger.warning(`Allowable countries are '${Object.keys(AmazonService.DOMAINS).join("', '")}'. Defaulting to ${AmazonService.DEFAULT_COUNTRY}.`);
       }
