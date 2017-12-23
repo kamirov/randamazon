@@ -5,8 +5,22 @@ const Logger = use('Logger');
 
 class ProductController {
   async get({request}) {
-    let filters = request.get('filters');
+    let filters = this._sanitizeFilters(request.get('filters'));
+
     return await (new ProductService).getProduct(filters);
+  }
+
+
+  _sanitizeFilters(filters) {
+    if (filters.maxPrice) {
+      filters.maxPrice = parseInt(filters.maxPrice);
+    }
+
+    if (filters.minPrice) {
+      filters.minPrice = parseInt(filters.minPrice);
+    }
+
+    return filters;
   }
 
 }
