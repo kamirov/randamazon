@@ -40,12 +40,8 @@ class App extends Component {
         return (
             <div>
                 <Grid container spacing={24} justify="center">
-                    <Grid item xs={4}>
+                    <Grid item xs={12} sm={9} md={6} lg={5} xl={3}>
                         <Button raised color="primary" className="randomize-button" onClick={this.refreshProduct}>Show me a random item</Button>
-                    </Grid>
-                </Grid>
-                <Grid container spacing={24} justify="center">
-                    <Grid item xs={4}>
                         {main}
                     </Grid>
                 </Grid>

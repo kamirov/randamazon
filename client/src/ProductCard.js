@@ -35,7 +35,8 @@ const styles = theme => ({
     },
     devNotes: {
         fontSize: '0.8rem',
-        fontFamily: '"Courier New", Courier, monospace'
+        fontFamily: '"Courier New", Courier, monospace',
+        textAlign: 'right'
     }
 });
 
@@ -94,7 +95,7 @@ class ProductCard extends Component {
                     </CardActions>
                     <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
                         <CardContent>
-                            <Typography type="alignRight" className={this.props.classes.devNotes}>
+                            <Typography className={this.props.classes.devNotes}>
                                 <i>Based on "{this.props.phrase}"</i>
                             </Typography>
                         </CardContent>
