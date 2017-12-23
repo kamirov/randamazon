@@ -7,14 +7,14 @@ import Collapse from 'material-ui/transitions/Collapse';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
-import red from 'material-ui/colors/red';
 import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
-import MoreVertIcon from 'material-ui-icons/MoreVert';
 
 
 const styles = theme => ({
     card: {
         maxWidth: '100%',
+        minHeight: 300,
+        padding: '1rem'
     },
     media: {
         height: 200,
@@ -96,7 +96,7 @@ class ProductCard extends Component {
                     <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
                         <CardContent>
                             <Typography className={this.props.classes.devNotes}>
-                                <i>Based on "{this.props.phrase}"</i>
+                                <i>Randomized based on "{this.props.phrase}"</i>
                             </Typography>
                         </CardContent>
                     </Collapse>
