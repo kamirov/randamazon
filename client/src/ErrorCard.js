@@ -13,6 +13,13 @@ const styles = theme => ({
     media: {
         height: 200,
         backgroundSize: 'contain'
+    },
+    devNotes: {
+        fontSize: '0.8rem',
+        marginTop: '1rem',
+        color: '#777',
+        fontFamily: '"Courier New", Courier, monospace',
+        textAlign: 'right'
     }
 });
 
@@ -32,6 +39,9 @@ class ErrorCard extends Component {
                         </Typography>
                     </CardContent>
                 </Card>
+                <Typography className={this.props.classes.devNotes}>
+                    <i>Randomized using "{this.props.phrase}". Made with &#10084; and JS by <a target="_blank" href="http://andreis.place" rel="noopener noreferrer">kamirov</a>.</i>
+                </Typography>
             </div>
         );
     }
