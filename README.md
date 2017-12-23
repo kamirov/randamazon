@@ -17,6 +17,7 @@ Backend is built with AdonisJS and frontend with React and Material UI.
 ## Known client bugs
 
 - There's an odd sideways bounce in the card whenever the country selector is opened
+- If the max price is < min price, no results are returned
 
 ## Known server bugs
 
