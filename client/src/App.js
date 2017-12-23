@@ -24,6 +24,9 @@ class App extends Component {
         this.refreshProduct = this.refreshProduct.bind(this);
         this.updateFilter = this.updateFilter.bind(this);
 
+    }
+
+    componentDidMount() {
         this.refreshProduct();
     }
 
@@ -65,6 +68,7 @@ class App extends Component {
         this.setState({
             filters: filters
         });
+
     }
 
     render() {
@@ -82,7 +86,7 @@ class App extends Component {
             <div>
                 <Grid container spacing={24} justify="center">
                     <Grid item xs={12} sm={9} md={6} lg={5} xl={3}>
-                        <Button raised color="primary" className="randomize-button" onClick={this.refreshProduct}>Show me a random item</Button>
+                        <Button raised disabled={this.state.status === 'loading'} color="primary" className="randomize-button" onClick={this.refreshProduct}>Show me a random item</Button>
 
                         <Grid>
                             <FilterBar filters={this.state.filters} onChange={this.updateFilter} />
