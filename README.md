@@ -28,3 +28,4 @@ Backend is built with AdonisJS and frontend with React and Material UI.
 - Dockerize the app and simplify installation process
 - Add other countries (fairly easy to do)
 - Combine cards on FE to one component
+- Remove unused parts of Adonis (phenomenal cosmic framework, itty-bitty backend requirements)
